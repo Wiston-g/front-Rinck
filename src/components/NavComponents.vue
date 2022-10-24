@@ -12,6 +12,15 @@
                 </span>
         </router-link>
         <router-link 
+            to="/login" 
+            class="nav-link" 
+            :class="{ active : activePath.login }" 
+            aria-current="page">
+                <span class="material-icons-outlined materialsw">
+                    done
+                </span>
+        </router-link>
+        <router-link 
             to="/profile" 
             class="nav-link" 
             :class="{ active : activePath.register }">
@@ -24,7 +33,7 @@
             class="nav-link" 
             :class="{ active : activePath.about }">
                 <span class="material-icons-outlined materialsw">
-                    close
+                    logout
                 </span>
         </router-link>
        
@@ -42,18 +51,28 @@ export default {
             if (this.$route.path === '/') {
                 return {
                 home: true,
+                login: false,
+                register: false,
+                about: false,
+                }
+            }else if(this.$route.path === '/login'){
+                return {
+                home: false,
+                login: true,
                 register: false,
                 about: false,
                 }
             }else if(this.$route.path === '/profile'){
                 return {
                 home: false,
+                login: false,
                 register: true,
                 about: false,
                 }
-            }else{
+            }else if(this.$route.path === '/about'){
                 return {
                 home: false,
+                login: false,
                 register: false,
                 about: true,
                 }
@@ -65,6 +84,6 @@ export default {
 </script>
 <style scoped>
 .active .materialsw{
-    background-color: rgba(115, 255, 0, 0.3);
+    background-color: rgba(115, 255, 0, 0.4);
 }
 </style>

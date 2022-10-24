@@ -1,5 +1,5 @@
 <template>
-    <div class="card bg-dark" >
+    <div class="card bg-dark " >
         <div class="card-body">
             <div class="row">
                 <div class="col">
@@ -10,13 +10,15 @@
                     <p v-if="parrafo" class="card-text">{{ parrafo }}</p>
                 </div>
             </div>
-            
-            
+                        
             <slot></slot>
+            
             <div class="d-grid gap-2">
-                <button 
+                <button
+                       
                     v-for="btn in btns" 
-                    :key="btn.txt" type="submit" 
+                    :key="btn.txt" 
+                    type="submit" 
                     class="btn" 
                     :class="btn.class">
                         {{ btn.txt }}

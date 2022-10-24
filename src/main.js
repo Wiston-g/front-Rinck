@@ -8,4 +8,8 @@ import '@/assets/bootstrap.bundle.min.js'
 import 'material-icons/iconfont/material-icons.css'
 
 
-createApp(App).use(store).use(router).mount('#app')
+
+const app = createApp(App)
+app.use(store)
+app.use(router)
+app.mount('#app')

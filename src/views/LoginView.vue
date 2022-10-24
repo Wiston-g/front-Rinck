@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+    <div class="home">
     <div class="row">
       <div class="col-lg-6">
         <div class="img-cont">
@@ -9,7 +9,7 @@
       </div>
       <div class="col-lg-6">
         <card-components   class="mx-auto card-comp ">
-          <FormRegComponents page :btns="btnArray"/>      
+          <FormComponents :btns="btnArray"/>
         </card-components>
       </div>
     </div>
@@ -18,30 +18,30 @@
 
 <script>
 import CardComponents from "../components/CardComponents.vue";
-import FormRegComponents from "../components/FormRegComponents.vue";
-
+import FormComponents from "../components/FormComponents.vue";
 export default {
-  name: 'Home',
-  components: {
-    CardComponents,
-    FormRegComponents,
+    name: 'Login',
+    components: {
+        CardComponents,
+        FormComponents,
   },
   data(){
     return{
       btnArray: [
         {
-          txt: 'Registraste',
+          txt: 'Iniciar sesión',
           class: 'btn-primary',
-          formu: 'register',
+          formu: 'login',
         },
       ],
     }
   },
 }
+
 </script>
 
-<style scoped>
-.img-logo{
+<style>
+    .img-logo{
   width:100%; 
   height: 95%;
 }

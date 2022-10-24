@@ -3,9 +3,8 @@
 </template>
 
 <script>
-
-
 import NavComponents from './components/NavComponents.vue'
+import { inject } from 'vue'
 
 export default {
     name: "App",
