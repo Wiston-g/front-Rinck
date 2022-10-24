@@ -1,30 +1,41 @@
-<template v-if="btns.formu == register" >
-    
+<template >
+    <h2>Completar perfil</h2>
     <form   
-            ref="user"
+            ref="usuario"
             :rules="rules"
             @submit.prevent="saveForm()">
 
-          
-        <alerts-components v-for="ass in alertArray" :key="ass.txt" :alertas="alertArray"></alerts-components>
-        
+    <alerts-components v-for="ass in alertArray" :key="ass.txt" :alertas="alertArray"></alerts-components>
+
         <div class="mb-3 mt-3">
-            <label for="name" class="form-label">Nombre:</label>
-            <input v-model="user.name" type="text" class="form-control" aria-describedby="emailHelp">
-        </div>    
+            <label for="exampleInputPassword1" class="form-label">Nombre</label>
+            <input v-model="user.name" type="text" class="form-control">
+        </div>
         <div class="mb-3 mt-3">
-            <label for="email1" class="form-label">Correo Electronico:</label>
+            <label for="exampleInputEmail1" class="form-label">Correo Electronico:</label>
             <input v-model="user.email" type="email" class="form-control" aria-describedby="emailHelp">
         </div>
         <div class="mb-3 mt-3">
-            <label for="Password1" class="form-label">Contraseña</label>
-            <input v-model="user.password" type="password" class="form-control" autocomplete="off" >
+            <label for="exampleInputPassword1" class="form-label">Direccion</label>
+            <input v-model="user.address" type="text" class="form-control">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="exampleInputPassword1" class="form-label">Fecha nacimiento</label>
+            <input v-model="user.birthdate" type="date" class="form-control">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="exampleInputPassword1" class="form-label">Ciudad</label>
+            <input v-model="user.city" type="text" class="form-control">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+            <input v-model="user.password" type="password" class="form-control">
         </div>
         <div class="mb-3 mt-3 " >
             <label for="Password2" class="form-label">Confirmar Contraseña</label>
             <input v-model="user.password_confirmation" type="password" class="form-control" autocomplete="off" >
         </div>
-               
+        
         <div class="d-grid gap-2">
            <button         
                 v-for="btn in btns" 
@@ -43,7 +54,7 @@
 import AlertsComponents from "../components/AlertsComponents.vue";
 
 export default {    
-    name: 'FormRegComponents',
+    name: 'FormPerComponents',
     props: ['btns'],
     components: {
         AlertsComponents,
@@ -100,13 +111,12 @@ export default {
             const myHeaders =  {
                 "Content-Type": "application/json",
                 "Accept" : "application/json",
+                'Authorization': `Bearer ${token}`, 
             };
 
             let formdata = {
-                'name': this.user.name,
                 'email': this.user.email,
                 'password' : this.user.password,
-                'password_confirmation' : this.user.password_confirmation,
             };
 
             this.users.push(formdata);
@@ -118,11 +128,12 @@ export default {
                 redirect: 'follow'
             };
             console.log(formdata);
-            fetch('http://localhost:8000/api/register', requestOptions)
+            fetch('http://localhost:8000/api/login', requestOptions)
             .then(response => response.json())
             .then(result => {
-                if (result.errors) {
-                    let msg = result.errors;
+                console.log(result);
+                if (result.status == 0) {
+                    let msg = result.msg;
                     let alerta = {
                         class: 'alert-danger text-danger',
                         txt: msg,
@@ -141,7 +152,7 @@ export default {
                     }
                     this.alertArray.push(alerta);
                     setTimeout( () =>{ this.alertArray.length = 0 },  2000);
-                    setTimeout(this.$router.push('/login'), 5000);
+                    setTimeout(this.$router.push('/profile'), 5000);
                 };
             })
             .catch(error => console.log(error));
