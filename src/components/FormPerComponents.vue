@@ -1,30 +1,30 @@
 <template >
     <h2>Completar perfil</h2>
-    <form   
-            ref="usuario"
-            :rules="rules"
-            @submit.prevent="saveForm()">
+    <form   ref="user"
+            v-for="user in infoUser"
+            :key="user.name"
+            @submit.prevent="saveForms()">
 
     <alerts-components v-for="ass in alertArray" :key="ass.txt" :alertas="alertArray"></alerts-components>
 
         <div class="mb-3 mt-3">
-            <label for="exampleInputPassword1" class="form-label">Nombre</label>
-            <input v-model="user.name" type="text" class="form-control">
+            <label for="name" class="form-label">Nombre</label>
+            <input  v-model="user.name" type="text" class="form-control">
         </div>
         <div class="mb-3 mt-3">
             <label for="exampleInputEmail1" class="form-label">Correo Electronico:</label>
             <input v-model="user.email" type="email" class="form-control" aria-describedby="emailHelp">
         </div>
         <div class="mb-3 mt-3">
-            <label for="exampleInputPassword1" class="form-label">Direccion</label>
+            <label for="address" class="form-label">Direccion</label>
             <input v-model="user.address" type="text" class="form-control">
         </div>
         <div class="mb-3 mt-3">
-            <label for="exampleInputPassword1" class="form-label">Fecha nacimiento</label>
+            <label for="birthdate" class="form-label">Fecha nacimiento</label>
             <input v-model="user.birthdate" type="date" class="form-control">
         </div>
         <div class="mb-3 mt-3">
-            <label for="exampleInputPassword1" class="form-label">Ciudad</label>
+            <label for="city" class="form-label">Ciudad</label>
             <input v-model="user.city" type="text" class="form-control">
         </div>
         <div class="mb-3 mt-3">
@@ -37,14 +37,7 @@
         </div>
         
         <div class="d-grid gap-2">
-           <button         
-                v-for="btn in btns" 
-                :key="btn.txt" 
-                type="submit" 
-                class="btn mt-2" 
-                :class="btn.class">
-                    {{ btn.txt }}
-            </button>
+            <button type="submit" class="btn btn-primary mt-2">Completar perfil</button>          
         </div>
     </form>
 </template>
@@ -55,7 +48,7 @@ import AlertsComponents from "../components/AlertsComponents.vue";
 
 export default {    
     name: 'FormPerComponents',
-    props: ['btns'],
+    props: ['infoUser'],
     components: {
         AlertsComponents,
     },
@@ -69,66 +62,43 @@ export default {
             user:{
                 name: '',
                 email: '',
+                address: '',
+                birthdate: '',
+                city: '',
                 password: '',
                 password_confirmation: ''
             },
-            rules:{
-                email:[{
-                    required: true,
-                    message: 'Campo required',
-                }],
-                password:[{
-                    required: true,
-                    message: 'Campo required',
-                },
-                {
-                    min: 8,
-                    message: 'limite de caracteres min 8',
-                }],
-                password_confirmation:[{
-                    required: true,
-                    message: 'Campo required',
-                },
-                {
-                    min: 8,
-                    message: 'limite de caracteres min 8',
-                }],
-            }
         }
     },
     methods:{
-        validacionFormulario(datas){
-            this.$ref['user'].validate((valid)=>{
-                if (valid) {
-                    return this.validacion.valido=true;
-                }else{
-                    return this.validacion.valido=false;
-                }
-            })
-        },
-        saveForm(){
-           
+        saveForms(){
             const myHeaders =  {
                 "Content-Type": "application/json",
                 "Accept" : "application/json",
-                'Authorization': `Bearer ${token}`, 
+                'Authorization': 'Bearer ' +  "6|UFoWxz4C6zIZzxEB7PdiFKBjROFKxON7ae8P02bN", 
             };
 
+                console.log('ff ' + this.user.name);
             let formdata = {
+                'name': this.user.name,
                 'email': this.user.email,
+                'address': this.user.address,
+                'birthdate': this.user.birthdate,
+                'city': this.user.city,
                 'password' : this.user.password,
+                'password_confirmation' : this.user.password_confirmation,
+                
             };
 
             this.users.push(formdata);
-           
+          
             let requestOptions = {
-                method: 'POST',
+                method: 'PUT',
                 headers: myHeaders,
                 body: JSON.stringify(formdata),
-                redirect: 'follow'
             };
             console.log(formdata);
-            fetch('http://localhost:8000/api/login', requestOptions)
+            fetch('http://localhost:8000/api/update', requestOptions)
             .then(response => response.json())
             .then(result => {
                 console.log(result);
@@ -152,7 +122,6 @@ export default {
                     }
                     this.alertArray.push(alerta);
                     setTimeout( () =>{ this.alertArray.length = 0 },  2000);
-                    setTimeout(this.$router.push('/profile'), 5000);
                 };
             })
             .catch(error => console.log(error));
