@@ -130,6 +130,8 @@ export default {
                         txt: msg,
                     }
                     this.alertArray.push(alerta);
+                    console.log(result.access_token);
+                    localStorage.setItem('Token', result.access_token);
                     setTimeout( () =>{ this.alertArray.length = 0 },  2000);
                     setTimeout(this.$router.push('/profile'), 5000);
                 };

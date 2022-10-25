@@ -86,11 +86,13 @@ export default {
   },
   created(){
      (()=>{
-      const myHeaders =  {
-        "Content-Type": "application/json",
+       const myHeaders =  {
+         "Content-Type": "application/json",
         "Accept" : "application/json",
-        'Authorization': 'Bearer ' +  "6|UFoWxz4C6zIZzxEB7PdiFKBjROFKxON7ae8P02bN", 
+        'Authorization': 'Bearer ' +  localStorage.getItem('token'), 
       };
+
+      console.log(localStorage.getItem('Token'));
 
       let requestOptions = {
         method: 'GET',
@@ -116,7 +118,7 @@ export default {
       const myHeaders =  {
         "Content-Type": "application/json",
         "Accept" : "application/json",
-        'Authorization': 'Bearer ' +  "6|UFoWxz4C6zIZzxEB7PdiFKBjROFKxON7ae8P02bN", 
+        'Authorization': 'Bearer ' +  localStorage.getItem('Token'), 
       };
 
       let requestOptions = {
@@ -168,7 +170,7 @@ export default {
       const myHeaders =  {
         "Content-Type": "application/json",
         "Accept" : "application/json",
-        'Authorization': 'Bearer ' +  "6|UFoWxz4C6zIZzxEB7PdiFKBjROFKxON7ae8P02bN", 
+        'Authorization': 'Bearer ' +  localStorage.getItem('Token'), 
       };
 
       let requestOptions = {
@@ -197,7 +199,7 @@ export default {
        const myHeaders =  {
         "Content-Type": "application/json",
         "Accept" : "application/json",
-        'Authorization': 'Bearer ' +  "6|UFoWxz4C6zIZzxEB7PdiFKBjROFKxON7ae8P02bN", 
+        'Authorization': 'Bearer ' +  localStorage.getItem('Token'), 
       };
 
       let nstring =String(this.perso);
@@ -219,11 +221,12 @@ export default {
       
     },
     getfavorite(){
+      console.log(localStorage.getItem('Token'));
       this.favorites.length = 0;
       const myHeaders =  {
         "Content-Type": "application/json",
         "Accept" : "application/json",
-        'Authorization': 'Bearer ' +  "6|UFoWxz4C6zIZzxEB7PdiFKBjROFKxON7ae8P02bN", 
+        'Authorization': 'Bearer ' +  localStorage.getItem('Token'), 
       };
 
       let requestOptions = {

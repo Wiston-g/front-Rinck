@@ -23,15 +23,17 @@
         <router-link 
             to="/profile" 
             class="nav-link" 
-            :class="{ active : activePath.register }">
+            :class="{ active : activePath.register }"
+            @click="getUsert()">
                 <span class="material-icons-outlined materialsw">
                     person
                 </span>
         </router-link>
         <router-link 
-            to="/about" 
+            to="/" 
             class="nav-link" 
-            :class="{ active : activePath.about }">
+            :class="{ active : activePath.about }"
+            @click="logout()">
                 <span class="material-icons-outlined materialsw">
                     logout
                 </span>
@@ -79,7 +81,30 @@ export default {
             }
             
         }
-    }
+    },
+    methods:{
+        logout(){
+            
+            const myHeaders =  {
+                "Content-Type": "application/json",
+                "Accept" : "application/json",
+                'Authorization': 'Bearer ' +  localStorage.getItem('token'), 
+            };
+
+            let requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+            };
+            
+            fetch('http://localhost:8000/api/create', requestOptions)
+            .then(response => response.json())
+            .then(result)
+            .catch(error => console.log(error));
+
+            localStorage.setItem('Token', '');
+            this.$router.push('/')
+        },
+    },
 }
 </script>
 <style scoped>

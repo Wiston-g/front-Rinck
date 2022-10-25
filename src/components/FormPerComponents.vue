@@ -75,7 +75,7 @@ export default {
             const myHeaders =  {
                 "Content-Type": "application/json",
                 "Accept" : "application/json",
-                'Authorization': 'Bearer ' +  "6|UFoWxz4C6zIZzxEB7PdiFKBjROFKxON7ae8P02bN", 
+                'Authorization': 'Bearer ' +  localStorage.getItem('token'), 
             };
 
                 console.log('ff ' + this.user.name);
